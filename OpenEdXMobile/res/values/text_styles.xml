@@ -120,11 +120,11 @@
     </style>
 
     <style name="bold_regular_edx_black_text" parent="@style/bold_text">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/general_black_text_color</item>
     </style>
 
     <style name="regular_edx_black_text" parent="@style/regular_text">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/general_black_text_color</item>
     </style>
 
     <style name="regular_edx_gray_xdark_text" parent="@style/regular_text">
@@ -211,7 +211,7 @@
 
     <!-- Registration Instruction Message below fields-->
     <style name="registration_instruction_message" parent="registration_error_message">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/general_black_text_color</item>
     </style>
 
     <!-- Course Card styles -->
@@ -222,6 +222,8 @@
         <item name="android:textSize">@dimen/edx_x_large</item>
         <item name="android:maxLines">3</item>
         <item name="android:ellipsize">end</item>
+        <item name="textColor">@color/general_black_text_color</item>
+
     </style>
 
     <style name="course_card_course_run" parent="@style/regular_edx_gray_xdark_text">
@@ -230,7 +232,7 @@
     </style>
 
     <style name="edX.TextAppearance.Switch" parent="@style/semibold_text">
-        <item name="android:textColor">@color/switch_text_color</item>
+        <item name="android:textColor">@color/general_black_text_color</item>
         <item name="android:textSize">@dimen/edx_small</item>
         <item name="android:textAllCaps">true</item>
     </style>

@@ -16,12 +16,19 @@ public class ApiConstants {
     public static final String ORG_CODE = "org";
 
     public static final String URL_MY_USER_INFO ="/api/mobile/v0.5/my_user_info";
+//    public static final String URL_MY_USER_INFO ="/my_user_info";
 
     public static final String URL_COURSE_ENROLLMENTS =
         "/api/mobile/v0.5/users/{username}/course_enrollments/?format=json";
 
+//    public static final String URL_COURSE_ENROLLMENTS =
+//            "/users/{username}/course_enrollments/?format=json";
+
+
     public static final String URL_VIDEO_OUTLINE =
         "/api/mobile/v0.5/video_outlines/courses/{courseId}";
+//    public static final String URL_VIDEO_OUTLINE =
+//            "/video_outlines/courses/{courseId}";
 
     public static final String URL_ACCESS_TOKEN = "/oauth2/access_token/";
 
@@ -34,6 +41,8 @@ public class ApiConstants {
     public static final String URL_LOGIN = "/oauth2/login/";
 
     public static final String URL_LAST_ACCESS_FOR_COURSE ="/api/mobile/v0.5/users/{username}/course_status_info/{courseId}";
+
+    //    public static final String URL_LAST_ACCESS_FOR_COURSE ="/users/{username}/course_status_info/{courseId}";
 
     public static final String URL_REGISTRATION = "/user_api/v1/account/registration/";
 

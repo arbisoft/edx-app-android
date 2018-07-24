@@ -98,7 +98,7 @@ public interface OkHttpClientProvider extends Provider<OkHttpClient> {
                     loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
                     interceptors.add(loggingInterceptor);
                 }
-                builder.authenticator(new OauthRefreshTokenAuthenticator(context));
+//                builder.authenticator(new OauthRefreshTokenAuthenticator(context));
                 // Enable TLS 1.2 support
                 client = Tls12SocketFactory.enableTls12OnPreLollipop(builder).build();
                 clients[index] = client;
