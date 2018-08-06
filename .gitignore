@@ -63,3 +63,5 @@ gradle.properties
 
 # reports directory
 /artifacts
+# Server configuration files
+tsbe_config/
