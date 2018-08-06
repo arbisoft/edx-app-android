@@ -264,7 +264,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "org.edx.mobile"
+        applicationId "mutalashi.mobile.app"
         // minimum version is Android 4.1
         minSdkVersion 16
         targetSdkVersion 21
@@ -276,15 +276,15 @@ android {
         renderscriptSupportModeEnabled true
 
         // test configuration
-        testApplicationId 'org.edx.mobile.test'
+        testApplicationId 'mutalashi.mobile.app.test'
 
         if (project.gradle.startParameter.taskNames.contains("screenshotTests")) {
             Map<String, String> map = new HashMap<String, String>();
-            map.put("package", "org.edx.mobile.test.screenshot");
+            map.put("package", "mutalashi.mobile.app.test.screenshot");
             setTestInstrumentationRunnerArguments map
         }
 
-        testInstrumentationRunner "org.edx.mobile.test.EdXTestRunner"
+        testInstrumentationRunner "mutalashi.mobile.app.test.EdXTestRunner"
 
         testHandleProfiling true
         testFunctionalTest true
