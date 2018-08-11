@@ -265,7 +265,7 @@ android {
 
     defaultConfig {
 //        applicationId "org.edx.mobile"
-        applicationId "myinteracademy.mobile.app"
+        applicationId "com.myinteracademy.mobile"
 
         // minimum version is Android 4.1
         minSdkVersion 16
@@ -279,18 +279,18 @@ android {
 
         // test configuration
         testApplicationId 'org.edx.mobile.test'
-        testApplicationId 'myinteracademy.mobile.app.test'
+        testApplicationId 'com.myinteracademy.mobile.test'
 
         if (project.gradle.startParameter.taskNames.contains("screenshotTests")) {
             Map<String, String> map = new HashMap<String, String>();
 //            map.put("package", "org.edx.mobile.test.screenshot");
-            map.put("package", "myinteracademy.mobile.app.test.screenshot");
+            map.put("package", "com.myinteracademy.mobile.test.screenshot");
 
             setTestInstrumentationRunnerArguments map
         }
 
 //        testInstrumentationRunner "org.edx.mobile.test.EdXTestRunner"
-        testInstrumentationRunner "myinteracademy.mobile.app.test.EdXTestRunner"
+        testInstrumentationRunner "com.myinteracademy.mobile.test.EdXTestRunner"
 
         testHandleProfiling true
         testFunctionalTest true
