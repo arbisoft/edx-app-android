@@ -81,6 +81,7 @@ public class RegisterActivity extends BaseFragmentActivity
     private View facebookButton;
     private View googleButton;
     private TextView errorTextView;
+    private TextView optional_text;
 
     @Inject
     LoginPrefs loginPrefs;
@@ -114,6 +115,11 @@ public class RegisterActivity extends BaseFragmentActivity
         socialLoginDelegate = new SocialLoginDelegate(this, savedInstanceState, this, environment.getConfig(), loginPrefs);
 
         errorTextView = (TextView) findViewById(R.id.content_unavailable_error_text);
+        createAccountTv = (TextView) findViewById(R.id.create_account_tv);
+        requiredFieldsLayout = (LinearLayout) findViewById(R.id.required_fields_layout);
+        optionalFieldsLayout = (LinearLayout) findViewById(R.id.optional_fields_layout);
+        createAccountBtn = (ViewGroup) findViewById(R.id.createAccount_button_layout);
+        optional_text = (TextView) findViewById(R.id.optional_field_tv);
 
         boolean isSocialEnabled = false;
         facebookButton = findViewById(R.id.facebook_button);
@@ -137,12 +143,15 @@ public class RegisterActivity extends BaseFragmentActivity
             findViewById(R.id.or_signup_with_email_title).setVisibility(View.GONE);
             findViewById(R.id.signup_with_row).setVisibility(View.GONE);
         }
+        if(!environment.getConfig().isManualRegisterEnabled()) {
+            hideManualRegister();
+            findViewById(R.id.or_signup_with_email_title).setVisibility(View.GONE);
+        }
 
         TextView agreementMessageView = (TextView) findViewById(R.id.by_creating_account_tv);
         agreementMessageView.setMovementMethod(LinkMovementMethod.getInstance());
         agreementMessageView.setText(org.edx.mobile.util.TextUtils.generateLicenseText(getResources(), R.string.by_creating_account));
 
-        createAccountBtn = (ViewGroup) findViewById(R.id.createAccount_button_layout);
         createAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,10 +160,6 @@ public class RegisterActivity extends BaseFragmentActivity
             }
         });
 
-        createAccountTv = (TextView) findViewById(R.id.create_account_tv);
-        requiredFieldsLayout = (LinearLayout) findViewById(R.id.required_fields_layout);
-        optionalFieldsLayout = (LinearLayout) findViewById(R.id.optional_fields_layout);
-        final TextView optional_text = (TextView) findViewById(R.id.optional_field_tv);
         optional_text.setTextColor(optional_text.getLinkTextColors().getDefaultColor());
         optional_text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -542,6 +547,10 @@ public class RegisterActivity extends BaseFragmentActivity
      */
     public void onSocialLoginSuccess(String accessToken, String backend, Task task) {
         //we should handle UI update here. but right now we do nothing in UI
+        if(!environment.getConfig().isManualRegisterEnabled()){
+            showManualRegister();
+        }
+
     }
 
     /*
@@ -648,4 +657,20 @@ public class RegisterActivity extends BaseFragmentActivity
     public void onSpinnerFocused() {
         SoftKeyboardUtil.hide(this);
     }
+    private void hideManualRegister(){
+        /*This should only be hidden if we have enabled only social
+         media sign-in and disabled manual sign-up in the app*/
+
+        requiredFieldsLayout.setVisibility(View.GONE);
+        createAccountBtn.setVisibility(View.GONE);
+        optional_text.setVisibility(View.GONE);
+    }
+    private void showManualRegister(){
+        /*This should only be shown if we have enabled only social
+         media sign-in and disabled manual sign-up in the app*/
+        requiredFieldsLayout.setVisibility(View.VISIBLE);
+        createAccountBtn.setVisibility(View.VISIBLE);
+        optional_text.setVisibility(View.VISIBLE);
+    }
+
 }
