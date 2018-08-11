@@ -114,6 +114,9 @@ public class LoginActivity
                     getString(R.string.label_version), versionName, envDisplayName);
             activityLoginBinding.versionEnvTv.setText(text);
         }
+        if(!config.isManualLoginEnabled()){
+            hideManualLogin();
+        }
 
         return new LoginPresenter.LoginViewInterface() {
             @Override
@@ -333,4 +336,14 @@ public class LoginActivity
 
         return true;
     }
+
+    private void hideManualLogin(){
+        activityLoginBinding.textAlternateSignIn.setText(getString(R.string.sign_in_with));
+        activityLoginBinding.usernameWrapper.setVisibility(View.GONE);
+        activityLoginBinding.passwordWrapper.setVisibility(View.GONE);
+        activityLoginBinding.forgotPasswordTv.setVisibility(View.GONE);
+        activityLoginBinding.loginButtonLayout.setVisibility(View.GONE);
+
+    }
+
 }

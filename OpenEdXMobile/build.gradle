@@ -264,7 +264,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "matriconline.mobile.app"
+        applicationId "com.matriconline.mobile"
         // minimum version is Android 4.1
         minSdkVersion 16
         targetSdkVersion 21
@@ -276,15 +276,15 @@ android {
         renderscriptSupportModeEnabled true
 
         // test configuration
-        testApplicationId 'matriconline.mobile.app.test'
+        testApplicationId 'com.matriconline.mobile.test'
 
         if (project.gradle.startParameter.taskNames.contains("screenshotTests")) {
             Map<String, String> map = new HashMap<String, String>();
-            map.put("package", "matriconline.mobile.app.test.screenshot");
+            map.put("package", "com.matriconline.mobile.test.screenshot");
             setTestInstrumentationRunnerArguments map
         }
 
-        testInstrumentationRunner "matriconline.mobile.app.test.EdXTestRunner"
+        testInstrumentationRunner "com.matriconline.mobile.test.EdXTestRunner"
 
         testHandleProfiling true
         testFunctionalTest true

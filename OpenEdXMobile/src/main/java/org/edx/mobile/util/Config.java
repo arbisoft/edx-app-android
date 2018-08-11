@@ -74,6 +74,8 @@ public class Config {
     private static final String COURSE_DATES_ENABLED = "COURSE_DATES_ENABLED";
     private static final String WHATS_NEW_ENABLED = "WHATS_NEW_ENABLED";
     private static final String COURSE_VIDEOS_ENABLED = "COURSE_VIDEOS_ENABLED";
+    private static final String MANUAL_LOGIN_ENABLED = "MANUAL_LOGIN_ENABLED";
+    private static final String MANUAL_REGISTER_ENABLED = "MANUAL_REGISTER_ENABLED";
 
     public static class ZeroRatingConfig {
         @SerializedName("ENABLED")
@@ -649,4 +651,11 @@ public class Config {
             }
         }
     }
+    public boolean isManualLoginEnabled() {
+        return getBoolean(MANUAL_LOGIN_ENABLED, false);
+    }
+    public boolean isManualRegisterEnabled() {
+        return getBoolean(MANUAL_REGISTER_ENABLED, false);
+    }
+
 }
