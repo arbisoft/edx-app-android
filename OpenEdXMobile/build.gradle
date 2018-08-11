@@ -264,7 +264,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "tsbe.mobile.app"
+        applicationId "com.tsbe.mobile"
         // minimum version is Android 4.1
         minSdkVersion 16
         targetSdkVersion 21
@@ -276,15 +276,15 @@ android {
         renderscriptSupportModeEnabled true
 
         // test configuration
-        testApplicationId 'tsbe.mobile.app.test'
+        testApplicationId 'com.tsbe.mobile.test'
 
         if (project.gradle.startParameter.taskNames.contains("screenshotTests")) {
             Map<String, String> map = new HashMap<String, String>();
-            map.put("package", "tsbe.mobile.app.test.screenshot");
+            map.put("package", "com.tsbe.mobile.test.screenshot");
             setTestInstrumentationRunnerArguments map
         }
 
-        testInstrumentationRunner "tsbe.mobile.app.test.EdXTestRunner"
+        testInstrumentationRunner "com.tsbe.mobile.test.EdXTestRunner"
 
         testHandleProfiling true
         testFunctionalTest true
