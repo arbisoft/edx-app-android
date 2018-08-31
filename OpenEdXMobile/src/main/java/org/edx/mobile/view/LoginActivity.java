@@ -333,7 +333,7 @@ public class LoginActivity
         activityLoginBinding.passwordEt.setEnabled(enable);
 
         activityLoginBinding.forgotPasswordTv.setEnabled(enable);
-//        activityLoginBinding.endUserAgreementTv.setEnabled(enable);
+        activityLoginBinding.endUserAgreementTv.setEnabled(enable);
 
         return true;
     }
