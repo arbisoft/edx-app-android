@@ -271,14 +271,14 @@ android {
         minSdkVersion 16
         targetSdkVersion 21
 
-        versionCode getVersionCode()
+        versionCode 1
         versionName getVersionName()
 
         renderscriptTargetApi 22
         renderscriptSupportModeEnabled true
 
         // test configuration
-        testApplicationId 'org.edx.mobile.test'
+//        testApplicationId 'org.edx.mobile.test'
         testApplicationId 'com.myinteracademy.mobile.test'
 
         if (project.gradle.startParameter.taskNames.contains("screenshotTests")) {
@@ -418,7 +418,7 @@ android {
             signingConfig signingConfigs.releasekey
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
-                    project.ext { appName = 'edx' }
+                    project.ext { appName = 'MyInterAcademy' }
                     def newName = output.outputFile.name
                     newName = newName.replace("OpenEdXMobile-", "$project.ext.appName-")
                     newName = newName.replace(("-" + variant.buildType.name), ("-" + variant.buildType.name + "-" + versionName))
