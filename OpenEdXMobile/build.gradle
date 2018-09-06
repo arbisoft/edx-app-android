@@ -69,7 +69,7 @@ def getVersionName = { ->
 
         def hasSemanticVersion = { s ->
             // This branch/tag contains a semantic version (e.g. "rc/2.6.0" or "release/2.5")
-            return s.indexOf("rc/") >= 0 || s.indexOf("release/") >= 0
+            return s.indexOf("rc-mia/") >= 0 || s.indexOf("release/") >= 0
         }
         if (hasSemanticVersion(branch)) {
             description = branch;
@@ -271,7 +271,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 21
 
-        versionCode 1
+        versionCode 2
         versionName getVersionName()
 
         renderscriptTargetApi 22
