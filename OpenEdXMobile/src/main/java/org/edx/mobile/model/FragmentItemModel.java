@@ -66,8 +66,11 @@ public class FragmentItemModel {
         final Fragment fragment;
         try {
             fragment = fragmentClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new Fragment.InstantiationException(
+        }
+     catch (InstantiationException e) {
+        throw new Fragment.InstantiationException(
+                String.format(ERROR_MSG_INSTANTIATION, fragmentClass), e);
+    } catch (IllegalAccessException e) {            throw new Fragment.InstantiationException(
                     String.format(ERROR_MSG_INSTANTIATION, fragmentClass), e);
         }
         fragment.setArguments(args);
