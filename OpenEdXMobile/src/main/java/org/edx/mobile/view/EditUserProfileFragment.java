@@ -1,13 +1,16 @@
 package org.edx.mobile.view;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.PopupMenu;
 import android.text.SpannableString;
@@ -54,6 +57,7 @@ import org.edx.mobile.user.UserAPI.AccountDataUpdatedCallback;
 import org.edx.mobile.user.UserService;
 import org.edx.mobile.util.InvalidLocaleException;
 import org.edx.mobile.util.LocaleUtils;
+import org.edx.mobile.util.PermissionsUtil;
 import org.edx.mobile.util.ResourceUtil;
 import org.edx.mobile.util.UserProfileUtils;
 import org.edx.mobile.util.images.ImageCaptureHelper;
@@ -69,12 +73,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import roboguice.inject.InjectExtra;
 
-public class EditUserProfileFragment extends BaseFragment {
+public class EditUserProfileFragment extends BaseFragment implements BaseFragment.PermissionListener{
 
     private static final int EDIT_FIELD_REQUEST = 1;
     private static final int CAPTURE_PHOTO_REQUEST = 2;
     private static final int CHOOSE_PHOTO_REQUEST = 3;
     private static final int CROP_PHOTO_REQUEST = 4;
+    public static final int CAMERA_PERMISSION_REQUEST = 5;
+    public static final int READ_STORAGE_PERMISSION_REQUEST = 6;
 
     @InjectExtra(EditUserProfileActivity.EXTRA_USERNAME)
     private String username;
@@ -144,6 +150,7 @@ public class EditUserProfileFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        permissionListener = this;
         viewHolder = new ViewHolder(view);
         viewHolder.profileImageProgress.setVisibility(View.GONE);
         viewHolder.username.setText(username);
@@ -163,16 +170,13 @@ public class EditUserProfileFragment extends BaseFragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.take_photo: {
-                                startActivityForResult(
-                                        helper.createCaptureIntent(getActivity()),
-                                        CAPTURE_PHOTO_REQUEST);
+                                askForPermission(new String[]{Manifest.permission.CAMERA},
+                                        PermissionsUtil.CAMERA_PERMISSION_REQUEST);
                                 break;
                             }
                             case R.id.choose_photo: {
-                                final Intent galleryIntent = new Intent()
-                                        .setType("image/*")
-                                        .setAction(Intent.ACTION_GET_CONTENT);
-                                startActivityForResult(galleryIntent, CHOOSE_PHOTO_REQUEST);
+                                askForPermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        PermissionsUtil.READ_STORAGE_PERMISSION_REQUEST);
                                 break;
                             }
                             case R.id.remove_photo: {
@@ -513,5 +517,24 @@ public class EditUserProfileFragment extends BaseFragment {
         }
         parent.addView(textView);
         return textView;
+    }
+    @Override
+    public void onPermissionGranted(String[] permissions, int requestCode) {
+        switch (requestCode) {
+        case PermissionsUtil.CAMERA_PERMISSION_REQUEST:
+                startActivityForResult(helper.createCaptureIntent(getActivity()), CAPTURE_PHOTO_REQUEST);
+                break;
+        case PermissionsUtil.READ_STORAGE_PERMISSION_REQUEST:
+            final Intent galleryIntent = new Intent()
+                        .setType("image/*")
+                        .setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(galleryIntent, CHOOSE_PHOTO_REQUEST);
+                break;
+            default:
+                break;
+        }
+    }
+    @Override
+    public void onPermissionDenied(String[] permissions, int requestCode) {
     }
 }
