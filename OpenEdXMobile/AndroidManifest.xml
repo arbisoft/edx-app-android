@@ -27,6 +27,10 @@
 
     <!-- Sticky broadcast passing a message from one screen and display on another -->
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <!-- Setup for Code Coverage -->
+    <instrumentation
+        android:name="org.edx.mobile.instrumentation.EdxInstrumentation"
+        android:targetPackage="org.edx.mobile" />
 
     <application
         android:name=".base.RuntimeApplication"
@@ -251,10 +255,6 @@
             </intent-filter>
         </receiver>
 
-        <!-- Setup for Code Coverage -->
-        <instrumentation
-            android:name="org.edx.mobile.instrumentation.EdxInstrumentation"
-            android:targetPackage="org.edx.mobile" />
 
         <!-- adb shell am broadcast -a org.edx.mobile.END_EMMA -->
         <receiver android:name="org.edx.mobile.instrumentation.EndEmmaBroadcast">
