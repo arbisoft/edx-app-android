@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -40,20 +41,24 @@ public class IDownloadManagerImpl implements IDownloadManager {
             Query query = new Query();
             query.setFilterById(dmid);
 
-            Cursor c = dm.query(query);
-            if (c.moveToFirst()) {
-                long downloaded = c
-                        .getLong(c
+            Cursor cursor = dm.query(query);
+            if (cursor.moveToFirst()) {
+                long downloaded = cursor.getLong(cursor
                                 .getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-                long size = c.getLong(c
+                long size = cursor.getLong(cursor
                         .getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-                String filepath = c.getString(c
-                        .getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME));
-                int status = c.getInt(c
-                        .getColumnIndex(DownloadManager.COLUMN_STATUS));
+                String filepath = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI));
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+                    if (filepath != null) {
+                        filepath = Uri.parse(filepath).getPath();
+                    }
+                } else {
+                    filepath = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME));
+                }
+                int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                cursor.close();
 
-                c.close();
-                
+
                 NativeDownloadModel ndm = new NativeDownloadModel();
                 ndm.dmid = dmid;
                 ndm.downloaded = downloaded;
@@ -63,7 +68,7 @@ public class IDownloadManagerImpl implements IDownloadManager {
                 
                 return ndm;
             }
-            c.close();
+            cursor.close();
         } catch(Exception e) {
             logger.error(e);
         }
